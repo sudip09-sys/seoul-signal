@@ -10,7 +10,7 @@ run('state=fresh();renderLesson(stations[0]);quiz.correct=2;finishQuiz()');asser
 run('quiz={index:0,correct:0,answered:false,finished:false};answerQuiz(0);answerQuiz(0)');assert.equal(run('quiz.correct'),1);
 run('builder=[1,0];checkBuilder()');assert.equal(run('state.built.length'),0);run('builder=[0,1];checkBuilder();checkBuilder()');assert.equal(run('points()'),10);
 run("toggleSave('hello-0')");assert.equal(run('state.saved.length'),1);run("toggleSave('hello-0');toggleSave('invalid')");assert.equal(run('state.saved.length'),0);
-assert.equal(run("String.fromCharCode(0xAC00+11*588)"),'?');assert.equal(run("String.fromCharCode(0xAC00+8*28)"),'?');
+assert.equal(run("String.fromCharCode(0xAC00+11*588)"),'아');assert.equal(run("String.fromCharCode(0xAC00+8*28)"),'고');
 const bad=harness('{broken');assert.equal(bad('state.stamps.length'),0);assert.equal(bad('storageOK'),false);
 const polluted=harness(JSON.stringify({stamps:['hello','hello','invalid'],saved:['<script>','hello-0']}));assert.equal(polluted('state.stamps.length'),1);assert.equal(polluted('state.saved.length'),1);
 console.log('PASS: 6 neighbourhoods; 24 phrases; quiz scoring, pass threshold, repeat protection, sentence validation, save toggles, Hangul composition and malformed-storage recovery.');
