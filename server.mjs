@@ -1,5 +1,5 @@
 import http from 'node:http';
-import {readFileSync,existsSync,mkdirSync} from 'node:fs';
+import {readFileSync,existsSync,mkdirSync,chownSync} from 'node:fs';
 import {dirname,resolve,extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomBytes,createHash,scrypt,timingSafeEqual} from 'node:crypto';
@@ -9,6 +9,7 @@ import {applyAction,emptyState,normalize} from './public/state.mjs';
 import {characters} from './public/data.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'public'),prod=process.env.NODE_ENV==='production';
 const dbPath=process.env.DB_PATH||resolve('jamo.sqlite');mkdirSync(dirname(dbPath),{recursive:true});
+if(prod&&process.getuid?.()===0){chownSync(dirname(dbPath),1000,1000);for(const file of [dbPath,dbPath+'-wal',dbPath+'-shm'])if(existsSync(file))chownSync(file,1000,1000);process.setgid(1000);process.setuid(1000);}
 const db=new DatabaseSync(dbPath);db.exec(`PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000;
  CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,email TEXT NOT NULL UNIQUE,name TEXT NOT NULL,salt TEXT NOT NULL,password_hash TEXT NOT NULL,created INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS sessions(token_hash TEXT PRIMARY KEY,user_id TEXT NOT NULL REFERENCES users(id),expires INTEGER NOT NULL);
