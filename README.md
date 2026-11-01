@@ -1,5 +1,9 @@
 # Jamo Journey
 
+**Live app:** https://jamo-journey-production.up.railway.app/
+
+The GitHub Pages URL forwards to the full-stack app.
+
 A full-stack Korean learning app by Sudip Sah, expanding Seoul Signal. Node 24+, no npm dependencies or build step. Run `npm start`; open port 3000. Run `npm test` for learning rules and authentication/streaming integration tests.
 
 ## Included
