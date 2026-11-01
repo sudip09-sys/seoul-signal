@@ -1,0 +1,1 @@
+{"name":"jamo-journey","version":"1.0.0","private":true,"type":"module","engines":{"node":">=24"},"scripts":{"start":"node server.mjs","test":"node --test tests/learning.test.mjs tests/http.test.mjs","test:network":"node --test tests/server.test.mjs"}}
